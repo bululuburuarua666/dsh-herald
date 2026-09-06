@@ -1,0 +1,5 @@
+# Append to your profile composition patch: ~/.dsh/profiles/<name>/cordis.patch.yml
+# (dsh plugin add does this automatically)
+- insert:
+    - id: herald
+      name: 'dsh-herald'

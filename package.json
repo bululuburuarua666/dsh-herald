@@ -1,0 +1,82 @@
+{
+  "name": "dsh-herald",
+  "version": "1.0.1",
+  "description": "Herald — tri-channel task notifications for DeepSeek Harness (DSH): approval requests, awaited replies, and finished jobs / subagents / workflows delivered through three independently switchable channels — in-page toasts with chimes, browser-raised OS banners, and host-direct OS toasts that keep working with the browser closed. Premium bell panel, persistent history, incremental adaptive polling.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "herald",
+    "notification",
+    "notifications",
+    "task-notify",
+    "toast",
+    "web",
+    "desktop-notifications"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "prepublishOnly": "npm test"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    },
+    "inventory": {
+      "title": {
+        "zh": "传令官 · 任务通知",
+        "en": "Herald · Task notifications"
+      },
+      "description": {
+        "zh": "三通道任务通知：页内浮层与提示音、浏览器系统横幅、宿主直发系统通知（浏览器关闭也送达）；附高级铃铛面板与持久历史。",
+        "en": "Tri-channel task notifications: in-page toasts with chimes, browser OS banners, and host-direct OS toasts that work with the browser closed; premium bell panel and persistent history."
+      }
+    },
+    "origin": {
+      "kind": "opensource",
+      "customized": true,
+      "upstream": "https://github.com/kaotusi/dsh-task-notify",
+      "fork": "https://github.com/bululuburuarua666/dsh-herald",
+      "note": {
+        "zh": "深度定制版：三通道投递架构、宿主直发系统通知、卡片式设置面板；修复上游 inject 死锁与网关参数派发问题。",
+        "en": "Deeply customized edition: tri-channel delivery architecture, host-direct OS toasts, card-based settings panel; fixes the upstream inject deadlock and gateway parameter-dispatch bugs."
+      }
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6",
+    "react": "^18.2.0",
+    "zod": "^3.0.0 || ^4.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bululuburuarua666/dsh-herald.git"
+  },
+  "homepage": "https://github.com/bululuburuarua666/dsh-herald#readme",
+  "bugs": {
+    "url": "https://github.com/bululuburuarua666/dsh-herald/issues"
+  },
+  "sideEffects": [
+    "./lib/client.js"
+  ]
+}

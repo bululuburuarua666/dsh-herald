@@ -1,0 +1,88 @@
+diff --git a/lib/index.js b/lib/index.js
+index 7f7e818..59b1e79 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -3,7 +3,10 @@ import { TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+ import { TYPERT } from './typert.js'
+ 
+ const name = 'task-notify'
+-const inject = ['tools', 'typert']
++// 'tools' 服务在 web 组合中的定义时机与静态 inject 的等待机制不合拍
++// (等不到,插件永远不挂载,loader 树永不 settle)。改为运行时注入:
++// 不阻塞挂载,服务就绪时再注册诊断工具。'typert' 是 apply 首行的硬依赖,保留静态。
++const inject = ['typert']
+ 
+ const CAP = 300
+ // Process-unique boot nonce: record ids must never repeat across plugin
+@@ -176,38 +179,41 @@ function apply(ctx) {
+   new TaskNotifyService(ctx, 'taskNotify')
+ 
+   // ── diagnostic tool: read the client Notification state ──
+-  ctx.tools.register(defineTool({
+-    name: 'ntfy_status',
+-    description: 'Read the task-notify plugin client diagnostics: whether the browser supports the Notification API, the current permission state, secure-context status, the last report time, and whether that report has gone stale (older than two minutes).',
+-    parameters: {},
+-    output: {
+-      schema: {
+-        type: 'object',
+-        additionalProperties: false,
+-        properties: {
+-          reported: { type: 'boolean' },
+-          stale: { type: 'boolean' },
+-          supported: { type: 'boolean' },
+-          permission: { type: 'string' },
+-          secure: { type: 'boolean' },
+-          at: { type: 'number' },
++  // 运行时注入 'tools'(见文件头注释):apply 内不能直接访问 ctx.tools。
++  ctx.inject(['tools'], (toolsCtx) => {
++    toolsCtx.tools.register(defineTool({
++      name: 'ntfy_status',
++      description: 'Read the task-notify plugin client diagnostics: whether the browser supports the Notification API, the current permission state, secure-context status, the last report time, and whether that report has gone stale (older than two minutes).',
++      parameters: {},
++      output: {
++        schema: {
++          type: 'object',
++          additionalProperties: false,
++          properties: {
++            reported: { type: 'boolean' },
++            stale: { type: 'boolean' },
++            supported: { type: 'boolean' },
++            permission: { type: 'string' },
++            secure: { type: 'boolean' },
++            at: { type: 'number' },
++          },
+         },
++        render: (_args, value) => [{ type: 'text', text: JSON.stringify(value) }],
+       },
+-      render: (_args, value) => [{ type: 'text', text: JSON.stringify(value) }],
+-    },
+-    execute() {
+-      if (clientDiag === null) return { reported: false, stale: true }
+-      const at = typeof clientDiag.at === 'number' ? clientDiag.at : 0
+-      return {
+-        reported: true,
+-        stale: Date.now() - at > 2 * 60 * 1000,
+-        supported: clientDiag.supported === true,
+-        permission: typeof clientDiag.permission === 'string' ? clientDiag.permission : 'unknown',
+-        secure: clientDiag.secure === true,
+-        at,
+-      }
+-    },
+-  }))
++      execute() {
++        if (clientDiag === null) return { reported: false, stale: true }
++        const at = typeof clientDiag.at === 'number' ? clientDiag.at : 0
++        return {
++          reported: true,
++          stale: Date.now() - at > 2 * 60 * 1000,
++          supported: clientDiag.supported === true,
++          permission: typeof clientDiag.permission === 'string' ? clientDiag.permission : 'unknown',
++          secure: clientDiag.secure === true,
++          at,
++        }
++      },
++    }))
++  })
+ }
+ 
+ export { name, inject, apply, TYPERT }
