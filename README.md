@@ -12,24 +12,32 @@ English | [中文](README.zh.md)
 
 Herald, the medieval messenger who crossed the city walls — because that is literally what this plugin does: **the DSH host process raises the OS notification itself** (PowerShell WinRT on Windows, `osascript` on macOS, `notify-send` on Linux). Browser open, hidden, or fully closed — the toast still lands.
 
-![host-direct OS toast](docs/screenshots/os-toast.png)
+## The three channels, live
 
-*Channel C — the host-direct OS toast on Windows, raised by the DSH process itself (no browser involved). Rendered with real payloads; backdrop recreated for privacy.*
+**Channel A · In-browser alerts** — the in-page toast (top-right, 6s, hover to pause), on the real DSH workspace:
+
+<img width="1075" alt="channel A — in-page toast" src="https://github.com/user-attachments/assets/8c0836a3-e2d7-4cbc-8e56-df71a9bbee7e" />
+
+**Channel B · Browser OS banners** — a banner the page requests through the browser `Notification` API (active while you browse; auto-backstop when host-direct is unavailable):
+
+<img width="1044" alt="channel B — browser OS banner" src="https://github.com/user-attachments/assets/c79b692f-5a9c-4353-aff0-f8ae02f73fdd" />
+
+**Channel C · Host-direct OS toasts** — raised straight from the DSH host process (via the Windows PowerShell WinRT channel — no browser involved, lands with the browser closed):
+
+<img width="1079" alt="channel C — host-direct OS toast" src="https://github.com/user-attachments/assets/f1c1d176-6ce9-445a-b700-f04a545183bc" />
+
+## The panel
 
 ![panel pair](docs/screenshots/panel-dark.png)
 ![panel light](docs/screenshots/panel-light.png)
 
 *The bell panel in dark (follows the DSH theme) and light — card-based channel settings, per-channel test buttons, segmented theme control. Bilingual 中/EN UI.*
 
-![in-page toasts](docs/screenshots/inpage-toast.png)
-
-*Channel A — in-page toasts (top-right, 6s, hover to pause): an approval alert and a finished-job notice, exactly as the plugin renders them.*
-
 ## Why Herald
 
 DSH runs long agent turns, background jobs, subagents and workflows. You step away for two minutes and miss the approval prompt. Notification plugins that rely on the browser's `Notification` API die silently when the page is hidden (background tabs pause polling), throttled, or the browser is closed. Herald fixes the delivery architecture itself — the **host** is the notifier.
 
-**Search-friendly summary**: DSH plugin · agent task notifications · approval alerts · desktop notifications · system notification center · Windows toast · macOS notification · background job alerts · subagent / workflow completion · in-page toasts · bell panel · notification history.
+**Tags**: DSH plugin · task notifications · approval alerts · desktop notifications · system notification center · Windows toast · background job alerts · subagent / workflow completion · in-page toasts · bell panel · notification history.
 
 ## The three channels
 

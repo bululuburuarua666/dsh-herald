@@ -12,37 +12,26 @@
 
 Herald，中世纪穿越城墙送信的传令官 —— 这正是本插件做的事：**DSH 宿主进程亲自弹出系统通知**（Windows 走 PowerShell WinRT、macOS 走 `osascript`、Linux 走 `notify-send`）。浏览器开着、隐藏、或彻底关闭 —— 通知都会到达。
 
-![宿主直发系统横幅](docs/screenshots/os-toast.png)
+## 三通道真实测试
 
-<img width="1079" height="594" alt="image" src="https://github.com/user-attachments/assets/f1c1d176-6ce9-445a-b700-f04a545183bc" />
+**通道 A · 浏览器内通知** —— 页内浮层（右上角，6 秒自动消失，悬停暂停），背景即 DSH 工作台：
 
+<img width="1075" alt="channel A — in-page toast" src="https://github.com/user-attachments/assets/8c0836a3-e2d7-4cbc-8e56-df71a9bbee7e" />
 
-通道B浏览器通道
-<img width="1044" height="428" alt="image" src="https://github.com/user-attachments/assets/c79b692f-5a9c-4353-aff0-f8ae02f73fdd" />
+**通道 B · 浏览器系统通知** —— 页面经浏览器 `Notification` API 请求的系统横幅（浏览器开着时生效，宿主直发不可用时自动接替）：
 
+<img width="1044" alt="channel B — browser OS banner" src="https://github.com/user-attachments/assets/c79b692f-5a9c-4353-aff0-f8ae02f73fdd" />
 
+**通道 C · 系统通知（宿主直发）** —— DSH 宿主进程直接弹出系统横幅（经 Windows PowerShell WinRT 通道，全程无浏览器参与，浏览器关闭也送达）：
 
+<img width="1079" alt="channel C — host-direct OS toast" src="https://github.com/user-attachments/assets/f1c1d176-6ce9-445a-b700-f04a545183bc" />
 
-
-
-
-
-
-*通道 C —— Windows 上的宿主直发系统横幅，由 DSH 宿主进程亲自弹出（全程无浏览器参与）。使用真实通知内容渲染，背景为保护隐私另行布置。*
+## 面板
 
 ![面板深色](docs/screenshots/panel-dark.png)
 ![面板浅色](docs/screenshots/panel-light.png)
 
 *铃铛面板（深色跟随 DSH 主题 / 浅色内置切换）—— 卡片式通道设置、每通道独立测试按钮、分段式主题控件，界面中英双语。*
-
-![页内浮层](docs/screenshots/inpage-toast.png)
-真实展示
-
-<img width="1075" height="598" alt="image" src="https://github.com/user-attachments/assets/8c0836a3-e2d7-4cbc-8e56-df71a9bbee7e" />
-
-
-
-*通道 A —— 页内浮层（右上角，6 秒，悬停暂停）：审批提醒与任务结束通知，即插件的真实渲染样式。*
 
 ## 为什么需要传令官
 
