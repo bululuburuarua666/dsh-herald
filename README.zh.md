@@ -14,6 +14,20 @@ Herald，中世纪穿越城墙送信的传令官 —— 这正是本插件做的
 
 ![宿主直发系统横幅](docs/screenshots/os-toast.png)
 
+<img width="1079" height="594" alt="image" src="https://github.com/user-attachments/assets/f1c1d176-6ce9-445a-b700-f04a545183bc" />
+
+
+通道B浏览器通道
+<img width="1044" height="428" alt="image" src="https://github.com/user-attachments/assets/c79b692f-5a9c-4353-aff0-f8ae02f73fdd" />
+
+
+
+
+
+
+
+
+
 *通道 C —— Windows 上的宿主直发系统横幅，由 DSH 宿主进程亲自弹出（全程无浏览器参与）。使用真实通知内容渲染，背景为保护隐私另行布置。*
 
 ![面板深色](docs/screenshots/panel-dark.png)
