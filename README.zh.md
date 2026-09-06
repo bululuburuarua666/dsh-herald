@@ -22,6 +22,11 @@ Herald，中世纪穿越城墙送信的传令官 —— 这正是本插件做的
 *铃铛面板（深色跟随 DSH 主题 / 浅色内置切换）—— 卡片式通道设置、每通道独立测试按钮、分段式主题控件，界面中英双语。*
 
 ![页内浮层](docs/screenshots/inpage-toast.png)
+真实展示
+
+<img width="1075" height="598" alt="image" src="https://github.com/user-attachments/assets/8c0836a3-e2d7-4cbc-8e56-df71a9bbee7e" />
+
+
 
 *通道 A —— 页内浮层（右上角，6 秒，悬停暂停）：审批提醒与任务结束通知，即插件的真实渲染样式。*
 
