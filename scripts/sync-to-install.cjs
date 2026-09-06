@@ -39,7 +39,10 @@ const copyFile = (rel) => {
   console.log('[sync] copied', rel)
 }
 
-for (const rel of ['lib/client.js', 'lib/index.js', 'lib/typert.js', 'lib/store.js', 'lib/settings.js', 'lib/osnotify.js', 'package.json', 'CHANGELOG.md', 'CUSTOM-FORK.md', 'test/client.test.mjs', 'test/host.test.mjs', 'test/osnotify.test.mjs', 'test/settings.test.mjs']) {
+// cordis.patch.yml MUST be in this list: the composition row (id/name) lives
+// there, so a rename or row change that skips it leaves the install composing
+// a stale plugin row — exactly the desync this once caused.
+for (const rel of ['lib/client.js', 'lib/index.js', 'lib/typert.js', 'lib/store.js', 'lib/settings.js', 'lib/osnotify.js', 'cordis.patch.yml', 'package.json', 'CHANGELOG.md', 'CUSTOM-FORK.md', 'test/client.test.mjs', 'test/host.test.mjs', 'test/osnotify.test.mjs', 'test/settings.test.mjs']) {
   if (fs.existsSync(path.join(repo, rel))) copyFile(rel)
 }
 
